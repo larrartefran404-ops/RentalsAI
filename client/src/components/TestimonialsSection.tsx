@@ -5,10 +5,16 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Star, Play, Quote, TrendingUp, Calendar, DollarSign } from "lucide-react";
 
+// Importar videos reales de testimonios
+import mariaGonzalezVideo from "@assets/MARIA GONZALEZ.mp4";
+import carlosMartinezVideo from "@assets/CARLOS MARTINEZ.mp4";
+import anaRodriguezVideo from "@assets/ANA RODRIGUEZ.mp4";
+
 export default function TestimonialsSection() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  // todo: remove mock functionality
+  // Testimonios reales con videos correspondientes
   const testimonials = [
     {
       id: 1,
@@ -26,6 +32,7 @@ export default function TestimonialsSection() {
         reservasDespues: "28-30 por mes",
         tiempoLibre: "Recuperé mis fines de semana"
       },
+      videoSrc: mariaGonzalezVideo,
       videoThumbnail: "/api/placeholder/400/250"
     },
     {
@@ -44,6 +51,7 @@ export default function TestimonialsSection() {
         reservasDespues: "99% de consultas atendidas",
         tiempoLibre: "Automatización completa"
       },
+      videoSrc: carlosMartinezVideo,
       videoThumbnail: "/api/placeholder/400/250"
     },
     {
@@ -62,9 +70,19 @@ export default function TestimonialsSection() {
         reservasDespues: "Gestión automatizada perfecta",
         tiempoLibre: "Escalé mi negocio 5x"
       },
+      videoSrc: anaRodriguezVideo,
       videoThumbnail: "/api/placeholder/400/250"
     }
   ];
+
+  const handlePlayVideo = () => {
+    setIsVideoPlaying(true);
+  };
+
+  const handleTestimonialChange = (index: number) => {
+    setActiveTestimonial(index);
+    setIsVideoPlaying(false); // Reset video state when switching testimonials
+  };
 
   const caseStudies = [
     {
@@ -118,7 +136,7 @@ export default function TestimonialsSection() {
                     ? "border-success bg-success/5"
                     : "border-border hover:border-success/50"
                 }`}
-                onClick={() => setActiveTestimonial(index)}
+                onClick={() => handleTestimonialChange(index)}
                 data-testid={`card-testimonial-${index}`}
               >
                 <div className="flex items-start gap-4">
@@ -169,18 +187,46 @@ export default function TestimonialsSection() {
           {/* Active Testimonial Detail */}
           <div className="space-y-6">
             <Card className="relative overflow-hidden">
-              <div className="relative h-64 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
-                <Button
-                  size="lg"
-                  className="rounded-full w-16 h-16 bg-white/90 hover:bg-white text-primary"
-                  onClick={() => console.log('Play video testimonial')}
-                  data-testid="button-play-video"
-                >
-                  <Play className="w-6 h-6 ml-1" />
-                </Button>
-                <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-background/90 backdrop-blur-sm rounded px-3 py-1">
-                  <p className="text-sm font-medium">Video Testimonial</p>
-                </div>
+              <div className="relative h-64">
+                {!isVideoPlaying ? (
+                  // Video Thumbnail con botón Play
+                  <div className="relative h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                    <Button
+                      size="lg"
+                      className="rounded-full w-16 h-16 bg-white/90 hover:bg-white text-primary shadow-lg hover:scale-110 transition-all duration-300"
+                      onClick={handlePlayVideo}
+                      data-testid="button-play-video"
+                    >
+                      <Play className="w-6 h-6 ml-1" />
+                    </Button>
+                    <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-background/90 backdrop-blur-sm rounded px-3 py-1">
+                      <p className="text-sm font-medium">
+                        Testimonio de {testimonials[activeTestimonial].name}
+                      </p>
+                    </div>
+                    <div className="absolute top-4 right-4 bg-destructive/90 text-destructive-foreground px-2 py-1 rounded text-xs font-bold">
+                      RESULTADOS REALES
+                    </div>
+                  </div>
+                ) : (
+                  // Video Player Real
+                  <div className="relative h-full">
+                    <video
+                      className="w-full h-full object-cover"
+                      controls
+                      autoPlay
+                      poster={testimonials[activeTestimonial].videoThumbnail}
+                      onEnded={() => setIsVideoPlaying(false)}
+                      data-testid="video-testimonial"
+                    >
+                      <source src={testimonials[activeTestimonial].videoSrc} type="video/mp4" />
+                      Tu navegador no soporta videos HTML5.
+                    </video>
+                    <div className="absolute top-4 right-4 bg-success/90 text-success-foreground px-2 py-1 rounded text-xs font-bold">
+                      ▶ EN VIVO
+                    </div>
+                  </div>
+                )}
               </div>
             </Card>
 
