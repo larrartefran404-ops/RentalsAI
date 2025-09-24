@@ -2,21 +2,100 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Timer, Bot, TrendingUp } from "lucide-react";
 import heroImage1 from "@assets/Gemini_Generated_Image_g7uj6lg7uj6lg7uj_1758668175798.png";
-import heroImage2 from "@assets/Gemini_Generated_Image_fenri9fenri9fenr_1758668175801.png";
-import heroImage3 from "@assets/Gemini_Generated_Image_fenri9fenri9fenr (1)_1758668175801.png";
-import heroImage4 from "@assets/Gemini_Generated_Image_fenribfenribfenr_1758668175801.png";
-import heroImage5 from "@assets/Gemini_Generated_Image_5s4nad5s4nad5s4n_1758668175802.png";
+import heroVideo1 from "@assets/Generated File September 23, 2025 - 11_32PM_1758693725088.mp4";
+import heroVideo2 from "@assets/MARIA GONZALEZ.mp4";
 
-const heroImages = [heroImage1, heroImage2, heroImage3, heroImage4, heroImage5];
+// Configuración de videos del hero optimizada para 16:9
+const heroVideos = [
+  {
+    type: 'video',
+    src: heroVideo1,
+    poster: heroImage1,
+    title: 'Monte Hermoso Beachfront Experience',
+    description: 'Experiencia frente al mar en Monte Hermoso'
+  },
+  {
+    type: 'video', 
+    src: heroVideo2,
+    poster: heroImage1,
+    title: 'Testimonial - María González',
+    description: 'Historia de éxito real de propietaria'
+  },
+  {
+    type: 'image',
+    src: heroImage1,
+    title: 'Luxury Sunset Views',
+    description: 'Atardeceres desde tu balcón privado'
+  }
+];
+
+// Componente de video optimizado
+const VideoBackground = ({ media, isActive }: { media: any, isActive: boolean }) => {
+  if (media.type === 'video') {
+    return (
+      <div className={`absolute inset-0 transition-opacity duration-1000 ${
+        isActive ? 'opacity-100' : 'opacity-0'
+      }`}>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          poster={media.poster}
+          className="w-full h-full object-cover"
+          preload="metadata"
+          onLoadStart={() => console.log(`Loading ${media.title}`)}
+          onCanPlay={() => console.log(`${media.title} ready to play`)}
+        >
+          <source src={media.src} type="video/mp4" />
+          {/* Fallback para navegadores sin soporte de video */}
+          <img 
+            src={media.poster} 
+            alt={media.title}
+            className="w-full h-full object-cover"
+          />
+        </video>
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
+      </div>
+    );
+  } else {
+    return (
+      <div
+        className={`absolute inset-0 transition-opacity duration-1000 ${
+          isActive ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <img
+          src={media.src}
+          alt={media.title}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
+      </div>
+    );
+  }
+};
 
 export default function HeroSection() {
-  const [currentImage, setCurrentImage] = useState(0);
+  const [currentMedia, setCurrentMedia] = useState(0);
   const [timeLeft, setTimeLeft] = useState({ days: 42, hours: 15, minutes: 30 });
+
+  // Preload videos para mejor performance
+  useEffect(() => {
+    heroVideos.forEach((media) => {
+      if (media.type === 'video') {
+        const videoElement = document.createElement('video');
+        videoElement.src = media.src;
+        videoElement.preload = 'metadata';
+        videoElement.load();
+      }
+    });
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % heroImages.length);
-    }, 4000);
+      setCurrentMedia((prev) => (prev + 1) % heroVideos.length);
+    }, 6000); // 6 segundos para videos más largos
     return () => clearInterval(timer);
   }, []);
 
@@ -36,40 +115,32 @@ export default function HeroSection() {
     return () => clearInterval(countdown);
   }, []);
 
-  const nextImage = () => setCurrentImage((prev) => (prev + 1) % heroImages.length);
-  const prevImage = () => setCurrentImage((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  const nextMedia = () => setCurrentMedia((prev) => (prev + 1) % heroVideos.length);
+  const prevMedia = () => setCurrentMedia((prev) => (prev - 1 + heroVideos.length) % heroVideos.length);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Image Carousel */}
+      {/* Background Video/Image Carousel */}
       <div className="absolute inset-0 z-0">
-        {heroImages.map((image, index) => (
-          <div
+        {heroVideos.map((media, index) => (
+          <VideoBackground
             key={index}
-            className={`absolute inset-0 transition-opacity duration-1000 ${
-              index === currentImage ? "opacity-100" : "opacity-0"
-            }`}
-          >
-            <img
-              src={image}
-              alt={`Monte Hermoso Property ${index + 1}`}
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
-          </div>
+            media={media}
+            isActive={index === currentMedia}
+          />
         ))}
       </div>
 
       {/* Carousel Controls */}
       <button
-        onClick={prevImage}
+        onClick={prevMedia}
         className="absolute left-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm hover-elevate"
         data-testid="button-prev-hero"
       >
         <ChevronLeft className="w-6 h-6 text-white" />
       </button>
       <button
-        onClick={nextImage}
+        onClick={nextMedia}
         className="absolute right-4 top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-white/10 backdrop-blur-sm hover-elevate"
         data-testid="button-next-hero"
       >
@@ -151,12 +222,12 @@ export default function HeroSection() {
 
       {/* Carousel Dots */}
       <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-        {heroImages.map((_, index) => (
+        {heroVideos.map((_, index) => (
           <button
             key={index}
-            onClick={() => setCurrentImage(index)}
+            onClick={() => setCurrentMedia(index)}
             className={`w-3 h-3 rounded-full transition-all ${
-              index === currentImage ? "bg-golden" : "bg-white/40"
+              index === currentMedia ? "bg-golden" : "bg-white/40"
             }`}
             data-testid={`dot-carousel-${index}`}
           />
