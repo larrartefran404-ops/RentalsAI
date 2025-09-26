@@ -92,42 +92,42 @@ export default function HeroSection() {
 
         {/* Main Headline */}
         <h1 className="text-4xl md:text-6xl lg:text-7xl font-display font-bold text-white mb-6 leading-tight">
-          ¿CANSADO DE PERDER
+          GESTIÓN INTELIGENTE
           <br />
-          <span className="text-golden">LA TEMPORADA?</span>
+          <span className="text-golden">PARA TUS ALQUILERES</span>
         </h1>
 
         {/* Subtitle */}
         <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-4xl mx-auto">
-          La primera plataforma que <span className="font-bold text-golden">GARANTIZA</span> que tu departamento nunca quede vacío
+          Integración directa con <span className="font-bold text-golden">Airbnb, Booking y más</span> + Soporte completo para maximizar tu ocupación
         </p>
 
-        {/* Key Statistic */}
+        {/* Key Benefits */}
         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6 mb-8 max-w-2xl mx-auto">
           <p className="text-lg text-white/80 mb-2">
-            95% de reservas se pierden por mala atención
+            Sincronización automática + IA 24/7
           </p>
           <p className="text-2xl md:text-3xl font-bold text-golden">
-            NOSOTROS CAPTURAMOS EL 100%
+            CERO TRABAJO MANUAL
           </p>
         </div>
 
         {/* Split Preview Before/After */}
         <div className="grid md:grid-cols-2 gap-6 mb-8 max-w-4xl mx-auto">
           <div className="bg-destructive/20 backdrop-blur-sm rounded-lg p-6 border border-destructive/30">
-            <h3 className="text-xl font-bold text-white mb-4">ANTES</h3>
+            <h3 className="text-xl font-bold text-white mb-4">GESTIÓN MANUAL</h3>
             <div className="space-y-2 text-white/80">
-              <p className="flex items-center gap-2">📱 Llamadas perdidas después de las 18hs</p>
-              <p className="flex items-center gap-2">⏰ Respuestas tardías (clientes se van)</p>
-              <p className="flex items-center gap-2">💸 Temporada perdida = $50,000 USD menos</p>
+              <p className="flex items-center gap-2">📱 Actualizaciones manuales en cada plataforma</p>
+              <p className="flex items-center gap-2">⏰ Calendarios desincronizados</p>
+              <p className="flex items-center gap-2">📧 Respuestas lentas a consultas</p>
             </div>
           </div>
           <div className="bg-success/20 backdrop-blur-sm rounded-lg p-6 border border-success/30">
             <h3 className="text-xl font-bold text-white mb-4">CON RENTALS AI</h3>
             <div className="space-y-2 text-white/80">
-              <p className="flex items-center gap-2"><Bot className="w-4 h-4" /> IA atiende 24/7/365</p>
-              <p className="flex items-center gap-2">⚡ Respuesta en menos de 30 segundos</p>
-              <p className="flex items-center gap-2"><TrendingUp className="w-4 h-4" /> 300% más reservas garantizadas</p>
+              <p className="flex items-center gap-2"><Bot className="w-4 h-4" /> Integración directa con todas las plataformas</p>
+              <p className="flex items-center gap-2">⚡ Sincronización automática en tiempo real</p>
+              <p className="flex items-center gap-2"><TrendingUp className="w-4 h-4" /> Asistente IA que nunca duerme</p>
             </div>
           </div>
         </div>
@@ -138,7 +138,7 @@ export default function HeroSection() {
           className="bg-golden hover:bg-golden/90 text-golden-foreground font-bold text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
           data-testid="button-main-cta"
         >
-          GARANTIZAMOS 300% MÁS RESERVAS
+          CONOCER NUESTRA PLATAFORMA
         </Button>
 
         {/* Secondary CTA */}

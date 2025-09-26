@@ -25,31 +25,31 @@ export default function GuaranteeSection() {
 
   const guarantees = [
     {
+      icon: Shield,
+      title: "SOPORTE COMPLETO INCLUIDO",
+      description: "Acompañamiento personalizado desde la configuración inicial hasta la optimización continua",
+      terms: "Incluye migración de datos, capacitación y soporte técnico especializado"
+    },
+    {
       icon: TrendingUp,
-      title: "300% MÁS RESERVAS GARANTIZADAS",
-      description: "Si no triplicas tus reservas en los primeros 90 días, te devolvemos el 100% de tu dinero",
-      terms: "Garantía válida para propiedades con historial mínimo de 6 meses"
+      title: "INTEGRACIÓN DIRECTA GARANTIZADA",
+      description: "Conexión automática con Airbnb, Booking.com y más de 15 plataformas principales",
+      terms: "Sincronización en tiempo real de calendarios, precios y disponibilidad"
     },
     {
       icon: DollarSign,
-      title: "PRIMERA TEMPORADA GRATIS",
-      description: "Si no cumplimos nuestras promesas en la primera temporada alta, la siguiente es completamente gratis",
-      terms: "Aplica a suscripciones anuales contratadas antes del 31 de diciembre"
-    },
-    {
-      icon: Shield,
-      title: "SOPORTE 24/7 GARANTIZADO",
-      description: "Respuesta garantizada en menos de 2 horas, cualquier día del año, durante toda tu suscripción",
-      terms: "Incluye soporte técnico, consultoría y optimización continua"
+      title: "CONFIGURACIÓN SIN COSTO",
+      description: "Setup completo de tu cuenta, migración de datos existentes y capacitación para tu equipo",
+      terms: "Incluye optimización de listings y configuración de precios dinámicos"
     }
   ];
 
   const riskReversals = [
-    "✅ Sin permanencia mínima - cancela cuando quieras",
-    "✅ Configuración gratuita e implementación sin costo",
-    "✅ Migración de datos incluida sin cargo adicional",
-    "✅ Capacitación completa para tu equipo",
-    "✅ Actualizaciones y mejoras automáticas de por vida"
+    "✅ Configuración completa incluida - sin costos adicionales",
+    "✅ Migración de todas tus propiedades existentes",
+    "✅ Capacitación personalizada para tu equipo",
+    "✅ Soporte técnico especializado continuo",
+    "✅ Actualizaciones y nuevas integraciones automáticas"
   ];
 
   return (
@@ -71,10 +71,10 @@ export default function GuaranteeSection() {
           </div>
 
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            <span className="text-golden">GARANTÍAS</span> Sin Precedentes
+            <span className="text-golden">COMPROMISO</span> Real Contigo
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Estamos tan seguros de nuestros resultados que ponemos nuestro dinero donde está nuestra palabra
+            Te acompañamos paso a paso para que aproveches al máximo todas las funcionalidades de la plataforma
           </p>
         </div>
 
@@ -107,39 +107,39 @@ export default function GuaranteeSection() {
           ))}
         </div>
 
-        {/* Central Guarantee Statement */}
+        {/* Central Commitment Statement */}
         <Card className="p-12 text-center bg-gradient-to-br from-golden/10 via-golden/5 to-transparent border-golden/30 mb-12">
           <Award className="w-16 h-16 text-golden mx-auto mb-6" />
           
           <h3 className="text-3xl md:text-4xl font-display font-bold mb-6">
-            GARANTÍA <span className="text-golden">TOTAL</span>
+            NUESTRO <span className="text-golden">COMPROMISO</span>
           </h3>
           
           <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto">
-            Si en los primeros 90 días no ves un aumento mínimo del 200% en tus reservas, 
-            no solo te devolvemos todo tu dinero, sino que te compensamos con 
-            <span className="font-bold text-golden"> $1,000 USD adicionales</span> por las molestias.
+            Te garantizamos una <span className="font-bold text-golden">configuración perfecta</span>, 
+            integración completa con todas tus plataformas existentes, y 
+            <span className="font-bold text-golden"> soporte especializado continuo</span> para maximizar tu ocupación.
           </p>
           
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <Badge className="bg-success text-success-foreground px-4 py-2">
-              Sin Letra Chica
+              Soporte Incluido
             </Badge>
             <Badge className="bg-primary text-primary-foreground px-4 py-2">
-              Sin Condiciones Ocultas
+              Integración Completa
             </Badge>
             <Badge className="bg-accent text-accent-foreground px-4 py-2">
-              Sin Permanencia
+              Sin Costos Ocultos
             </Badge>
           </div>
 
           <Button
             size="lg"
             className="bg-golden hover:bg-golden/90 text-golden-foreground text-xl px-12 py-6 rounded-full shadow-2xl"
-            onClick={() => console.log('Guarantee CTA clicked')}
-            data-testid="button-guarantee-cta"
+            onClick={() => console.log('Commitment CTA clicked')}
+            data-testid="button-commitment-cta"
           >
-            ACEPTAR GARANTÍA Y EMPEZAR
+            AGENDAR DEMO PERSONALIZADA
           </Button>
         </Card>
 
@@ -170,23 +170,23 @@ export default function GuaranteeSection() {
 
           <Card className="p-8 bg-primary/5 border-primary/20">
             <h4 className="font-bold text-xl mb-6 text-center">
-              Lo Que Otros Cobran vs Lo Que Garantizamos
+              Lo Que Incluimos vs La Competencia
             </h4>
             
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-destructive/10 rounded">
-                <span className="text-sm">Competencia:</span>
-                <span className="font-medium text-destructive">Solo promesas</span>
+                <span className="text-sm">Otros:</span>
+                <span className="font-medium text-destructive">Configuración por separado</span>
               </div>
               
               <div className="flex justify-between items-center p-4 bg-golden/10 rounded">
                 <span className="text-sm">Rentals AI:</span>
-                <span className="font-medium text-golden">Garantía con dinero</span>
+                <span className="font-medium text-golden">Todo incluido + soporte</span>
               </div>
               
               <div className="flex justify-between items-center p-4 bg-success/10 rounded">
-                <span className="text-sm">Tu Riesgo:</span>
-                <span className="font-bold text-success">$0 USD</span>
+                <span className="text-sm">Integraciones:</span>
+                <span className="font-bold text-success">15+ plataformas</span>
               </div>
             </div>
             
@@ -206,16 +206,16 @@ export default function GuaranteeSection() {
           
           <div className="flex justify-center gap-6 mb-8">
             <div className="text-center">
-              <p className="text-3xl font-bold text-success">$0</p>
-              <p className="text-sm text-muted-foreground">Reclamos de garantía</p>
+              <p className="text-3xl font-bold text-success">15+</p>
+              <p className="text-sm text-muted-foreground">Plataformas integradas</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-golden">100%</p>
-              <p className="text-sm text-muted-foreground">Clientes satisfechos</p>
+              <p className="text-3xl font-bold text-golden">24/7</p>
+              <p className="text-sm text-muted-foreground">Soporte disponible</p>
             </div>
             <div className="text-center">
-              <p className="text-3xl font-bold text-accent">95%</p>
-              <p className="text-sm text-muted-foreground">Renuevan cada año</p>
+              <p className="text-3xl font-bold text-accent">150+</p>
+              <p className="text-sm text-muted-foreground">Propietarios activos</p>
             </div>
           </div>
 
