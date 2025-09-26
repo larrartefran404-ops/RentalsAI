@@ -2,10 +2,17 @@ import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Bed, Bath, Users, MapPin, Bot, TrendingUp, Wifi, Car, UtensilsCrossed } from "lucide-react";
-import heroImage1 from "@assets/Gemini_Generated_Image_uoelauuoelauuoel_1758668175802.png";
-import heroImage2 from "@assets/Gemini_Generated_Image_z1ubaoz1ubaoz1ub_1758668175802.png";
-import heroImage3 from "@assets/Gemini_Generated_Image_2z73lm2z73lm2z73_1758668175802.png";
+import {
+  Bed,
+  Bath,
+  Users,
+  MapPin,
+  Bot,
+  TrendingUp,
+  Wifi,
+  Car,
+  UtensilsCrossed,
+} from "lucide-react";
 
 export default function PropertyGrid() {
   const [properties] = useState([
@@ -13,7 +20,7 @@ export default function PropertyGrid() {
       id: 1,
       title: "Penthouse Vista al Mar",
       location: "Monte Hermoso - Frente al Mar",
-      image: heroImage1,
+      image: "/attached_assets/GEMINI 1.png",
       beds: 3,
       baths: 2,
       maxGuests: 8,
@@ -23,15 +30,15 @@ export default function PropertyGrid() {
       aiStats: {
         consultasHoy: 47,
         reservasCerradas: 12,
-        tiempoRespuesta: "18s"
+        tiempoRespuesta: "18s",
       },
-      amenities: ["WiFi", "Estacionamiento", "Cocina Completa", "Terraza"]
+      amenities: ["WiFi", "Estacionamiento", "Cocina Completa", "Terraza"],
     },
     {
       id: 2,
       title: "Suite Familiar Premium",
       location: "Monte Hermoso - 2 Cuadras del Mar",
-      image: heroImage2,
+      image: "/attached_assets/GEMINI 2.png",
       beds: 2,
       baths: 1,
       maxGuests: 6,
@@ -41,15 +48,15 @@ export default function PropertyGrid() {
       aiStats: {
         consultasHoy: 32,
         reservasCerradas: 8,
-        tiempoRespuesta: "15s"
+        tiempoRespuesta: "15s",
       },
-      amenities: ["WiFi", "Aire Acondicionado", "Cocina", "Parrilla"]
+      amenities: ["WiFi", "Aire Acondicionado", "Cocina", "Parrilla"],
     },
     {
       id: 3,
       title: "Loft Moderno Ejecutivo",
       location: "Monte Hermoso - Centro",
-      image: heroImage3,
+      image: "/attached_assets/GEMINI 3.png",
       beds: 1,
       baths: 1,
       maxGuests: 4,
@@ -59,26 +66,29 @@ export default function PropertyGrid() {
       aiStats: {
         consultasHoy: 28,
         reservasCerradas: 9,
-        tiempoRespuesta: "22s"
+        tiempoRespuesta: "22s",
       },
-      amenities: ["WiFi", "Smart TV", "Cocina", "Workspace"]
-    }
+      amenities: ["WiFi", "Smart TV", "Cocina", "Workspace"],
+    },
   ]);
 
-  // todo: remove mock functionality 
+  // todo: remove mock functionality
   const [liveStats, setLiveStats] = useState(
-    properties.map(p => ({ ...p.aiStats }))
+    properties.map((p) => ({ ...p.aiStats })),
   );
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setLiveStats(prev => prev.map(stat => ({
-        ...stat,
-        consultasHoy: stat.consultasHoy + Math.floor(Math.random() * 2),
-        reservasCerradas: stat.reservasCerradas + (Math.random() > 0.8 ? 1 : 0)
-      })));
+      setLiveStats((prev) =>
+        prev.map((stat) => ({
+          ...stat,
+          consultasHoy: stat.consultasHoy + Math.floor(Math.random() * 2),
+          reservasCerradas:
+            stat.reservasCerradas + (Math.random() > 0.8 ? 1 : 0),
+        })),
+      );
     }, 10000);
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -103,15 +113,16 @@ export default function PropertyGrid() {
             Propiedades con <span className="text-accent">IA Integrada</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Cada propiedad potenciada con inteligencia artificial para maximizar ocupación y rentabilidad
+            Cada propiedad potenciada con inteligencia artificial para maximizar
+            ocupación y rentabilidad
           </p>
         </div>
 
         {/* Properties Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {properties.map((property, index) => (
-            <Card 
-              key={property.id} 
+            <Card
+              key={property.id}
               className="overflow-hidden hover-elevate transition-all duration-300 border-border hover:border-accent/50"
               data-testid={`card-property-${property.id}`}
             >
@@ -122,10 +133,14 @@ export default function PropertyGrid() {
                   alt={property.title}
                   className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                 />
-                
+
                 {/* Occupancy Badge */}
-                <div className={`absolute top-4 right-4 px-3 py-1 rounded-full ${getOccupancyBgColor(property.occupancy)}`}>
-                  <span className={`text-sm font-medium ${getOccupancyColor(property.occupancy)}`}>
+                <div
+                  className={`absolute top-4 right-4 px-3 py-1 rounded-full ${getOccupancyBgColor(property.occupancy)}`}
+                >
+                  <span
+                    className={`text-sm font-medium ${getOccupancyColor(property.occupancy)}`}
+                  >
                     {property.occupancy}% ocupado
                   </span>
                 </div>
@@ -133,14 +148,25 @@ export default function PropertyGrid() {
                 {/* Price Overlay */}
                 <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-background/90 backdrop-blur-sm rounded-lg p-3">
                   <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-golden">${property.currentPrice}</span>
-                    <span className="text-sm text-muted-foreground line-through">${property.basePrice}</span>
+                    <span className="text-lg font-bold text-golden">
+                      ${property.currentPrice}
+                    </span>
+                    <span className="text-sm text-muted-foreground line-through">
+                      ${property.basePrice}
+                    </span>
                     <Badge variant="outline" className="text-xs">
-                      <TrendingUp className="w-3 h-3 mr-1" />
-                      +{Math.round(((property.currentPrice - property.basePrice) / property.basePrice) * 100)}%
+                      <TrendingUp className="w-3 h-3 mr-1" />+
+                      {Math.round(
+                        ((property.currentPrice - property.basePrice) /
+                          property.basePrice) *
+                          100,
+                      )}
+                      %
                     </Badge>
                   </div>
-                  <p className="text-xs text-muted-foreground">por noche (precio dinámico)</p>
+                  <p className="text-xs text-muted-foreground">
+                    por noche (precio dinámico)
+                  </p>
                 </div>
               </div>
 
@@ -186,18 +212,26 @@ export default function PropertyGrid() {
                 <div className="bg-accent/5 rounded-lg p-4 mb-4">
                   <div className="flex items-center gap-2 mb-3">
                     <Bot className="w-4 h-4 text-accent" />
-                    <span className="text-sm font-medium">Actividad IA Hoy</span>
+                    <span className="text-sm font-medium">
+                      Actividad IA Hoy
+                    </span>
                   </div>
-                  
+
                   <div className="grid grid-cols-3 gap-3 text-center">
                     <div>
-                      <p className="text-lg font-bold text-accent" data-testid={`stat-consultas-${property.id}`}>
+                      <p
+                        className="text-lg font-bold text-accent"
+                        data-testid={`stat-consultas-${property.id}`}
+                      >
                         {liveStats[index]?.consultasHoy}
                       </p>
                       <p className="text-xs text-muted-foreground">Consultas</p>
                     </div>
                     <div>
-                      <p className="text-lg font-bold text-success" data-testid={`stat-reservas-${property.id}`}>
+                      <p
+                        className="text-lg font-bold text-success"
+                        data-testid={`stat-reservas-${property.id}`}
+                      >
                         {liveStats[index]?.reservasCerradas}
                       </p>
                       <p className="text-xs text-muted-foreground">Reservas</p>
@@ -212,10 +246,12 @@ export default function PropertyGrid() {
                 </div>
 
                 {/* CTA Button */}
-                <Button 
+                <Button
                   className="w-full"
                   variant="outline"
-                  onClick={() => console.log(`View details for property ${property.id}`)}
+                  onClick={() =>
+                    console.log(`View details for property ${property.id}`)
+                  }
                   data-testid={`button-view-property-${property.id}`}
                 >
                   Ver Detalles y Dashboard
@@ -229,25 +265,29 @@ export default function PropertyGrid() {
         <div className="grid md:grid-cols-4 gap-6 mb-8">
           <Card className="p-6 text-center bg-success/5 border-success/20">
             <p className="text-3xl font-bold text-success mb-2">
-              {properties.reduce((sum, p) => sum + p.occupancy, 0) / properties.length}%
+              {Math.round(
+                properties.reduce((sum, p) => sum + p.occupancy, 0) /
+                  properties.length,
+              )}
+              %
             </p>
             <p className="text-sm text-muted-foreground">Ocupación Promedio</p>
           </Card>
-          
+
           <Card className="p-6 text-center bg-accent/5 border-accent/20">
             <p className="text-3xl font-bold text-accent mb-2">
               {liveStats.reduce((sum, s) => sum + s.consultasHoy, 0)}
             </p>
             <p className="text-sm text-muted-foreground">Consultas Hoy</p>
           </Card>
-          
+
           <Card className="p-6 text-center bg-golden/5 border-golden/20">
             <p className="text-3xl font-bold text-golden mb-2">
               {liveStats.reduce((sum, s) => sum + s.reservasCerradas, 0)}
             </p>
             <p className="text-sm text-muted-foreground">Reservas Cerradas</p>
           </Card>
-          
+
           <Card className="p-6 text-center bg-primary/5 border-primary/20">
             <p className="text-3xl font-bold text-primary mb-2">19s</p>
             <p className="text-sm text-muted-foreground">Tiempo Promedio</p>
@@ -259,7 +299,7 @@ export default function PropertyGrid() {
           <Button
             size="lg"
             className="bg-accent hover:bg-accent/90 text-accent-foreground"
-            onClick={() => console.log('Add property clicked')}
+            onClick={() => console.log("Add property clicked")}
             data-testid="button-add-property"
           >
             Agregar Mi Propiedad al Sistema
