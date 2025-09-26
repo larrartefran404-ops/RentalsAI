@@ -4,9 +4,13 @@ import { ChevronLeft, ChevronRight, Timer, Bot, TrendingUp } from "lucide-react"
 
 // Images for hero carousel
 const heroImages = [
-  "/api/placeholder/1920/1080",
-  "/api/placeholder/1920/1080", 
-  "/api/placeholder/1920/1080"
+  "/images/hero-1.png",
+  "/images/hero-2.png",
+  "/images/hero-3.png",
+  "/images/hero-4.png",
+  "/images/hero-5.png",
+  "/images/hero-6.png",
+  "/images/hero-7.png"
 ];
 
 export default function HeroSection() {
