@@ -11,16 +11,35 @@ export default function IncomeCalculator() {
   const [averageRate, setAverageRate] = useState([150]);
   const [propertyType, setPropertyType] = useState("apartment");
 
-  // Calculation logic
-  const daysPerYear = 365;
-  const currentDaysOccupied = Math.round((currentOccupancy[0] / 100) * daysPerYear);
-  const currentAnnualIncome = currentDaysOccupied * averageRate[0];
+  // Calculation logic - Realistic for Monte Hermoso (5 month season)
+  const seasonDays = 150; // 5 months main season (Dec-April)
+  const offSeasonDays = 215; // Rest of the year
   
-  // With AI improvements
-  const aiOccupancy = Math.min(95, currentOccupancy[0] * 3); // 300% increase, capped at 95%
-  const aiRate = averageRate[0] * 1.2; // 20% price optimization
-  const aiDaysOccupied = Math.round((aiOccupancy / 100) * daysPerYear);
-  const aiAnnualIncome = aiDaysOccupied * aiRate;
+  // Current situation
+  const currentSeasonOccupancy = currentOccupancy[0] / 100;
+  const currentOffSeasonOccupancy = Math.max(0.1, currentOccupancy[0] / 400); // Much lower off-season
+  
+  const currentSeasonDays = Math.round(seasonDays * currentSeasonOccupancy);
+  const currentOffSeasonDays = Math.round(offSeasonDays * currentOffSeasonOccupancy);
+  const currentDaysOccupied = currentSeasonDays + currentOffSeasonDays;
+  
+  const seasonRate = averageRate[0];
+  const offSeasonRate = Math.round(averageRate[0] * 0.6); // 40% less in off-season
+  
+  const currentAnnualIncome = (currentSeasonDays * seasonRate) + (currentOffSeasonDays * offSeasonRate);
+  
+  // With AI improvements - more realistic gains
+  const aiSeasonOccupancy = Math.min(0.85, currentSeasonOccupancy * 1.8); // 80% improvement, max 85%
+  const aiOffSeasonOccupancy = Math.min(0.4, currentOffSeasonOccupancy * 3); // Triple off-season
+  
+  const aiSeasonDays = Math.round(seasonDays * aiSeasonOccupancy);
+  const aiOffSeasonDays = Math.round(offSeasonDays * aiOffSeasonOccupancy);
+  const aiDaysOccupied = aiSeasonDays + aiOffSeasonDays;
+  
+  const aiSeasonRate = Math.round(seasonRate * 1.15); // 15% price optimization
+  const aiOffSeasonRate = Math.round(offSeasonRate * 1.2); // 20% off-season optimization
+  
+  const aiAnnualIncome = (aiSeasonDays * aiSeasonRate) + (aiOffSeasonDays * aiOffSeasonRate);
   
   const totalIncrease = aiAnnualIncome - currentAnnualIncome;
   const percentageIncrease = Math.round(((aiAnnualIncome - currentAnnualIncome) / currentAnnualIncome) * 100);
@@ -45,7 +64,7 @@ export default function IncomeCalculator() {
   const adjustedNetProfit = adjustedIncrease - systemCost;
 
   return (
-    <section className="py-16 lg:py-24 bg-background">
+    <section className="py-16 lg:py-24 bg-gradient-to-br from-gray-100 via-slate-50 to-gray-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -118,15 +137,15 @@ export default function IncomeCalculator() {
                 <Slider
                   value={averageRate}
                   onValueChange={setAverageRate}
-                  max={400}
-                  min={50}
-                  step={10}
+                  max={200}
+                  min={40}
+                  step={5}
                   className="mb-2"
                   data-testid="slider-rate"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>$50 USD</span>
-                  <span>$400 USD</span>
+                  <span>$40 USD</span>
+                  <span>$200 USD</span>
                 </div>
               </div>
 
@@ -163,15 +182,15 @@ export default function IncomeCalculator() {
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between items-center">
                   <span>Nueva ocupación:</span>
-                  <Badge className="bg-success text-success-foreground">
-                    {Math.round(aiOccupancy)}% (+{Math.round(aiOccupancy - currentOccupancy[0])}%)
+                  <Badge className="bg-orange-500 text-white">
+                    {Math.round((aiDaysOccupied/365)*100)}% (+{Math.round(((aiDaysOccupied-currentDaysOccupied)/365)*100)}%)
                   </Badge>
                 </div>
                 
                 <div className="flex justify-between items-center">
-                  <span>Tarifa optimizada:</span>
+                  <span>Tarifa promedio optimizada:</span>
                   <Badge className="bg-golden text-golden-foreground">
-                    ${Math.round(aiRate)} USD (+20%)
+                    ${Math.round((aiSeasonRate + aiOffSeasonRate)/2)} USD (+15%)
                   </Badge>
                 </div>
                 

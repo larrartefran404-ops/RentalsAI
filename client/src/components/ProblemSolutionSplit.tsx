@@ -17,25 +17,25 @@ export default function ProblemSolutionSplit() {
       icon: PhoneOff,
       title: "Llamadas perdidas después de las 18hs",
       description: "Los clientes llaman fuera del horario y nadie responde",
-      color: "text-destructive"
+      color: "text-blue-600"
     },
     {
       icon: Clock,
       title: "Respuestas tardías (clientes se van)",
       description: "Demoras de horas en responder = reservas perdidas",
-      color: "text-destructive"
+      color: "text-blue-600"
     },
     {
       icon: Calendar,
       title: "Calendarios desactualizados",
       description: "Información incorrecta genera confusión y cancelaciones",
-      color: "text-destructive"
+      color: "text-blue-600"
     },
     {
       icon: DollarSign,
-      title: "Temporada perdida = $50,000 USD menos",
+      title: "Temporada perdida = $25,000 USD menos",
       description: "Cada oportunidad perdida cuesta miles de dólares",
-      color: "text-destructive"
+      color: "text-blue-600"
     }
   ];
 
@@ -44,45 +44,45 @@ export default function ProblemSolutionSplit() {
       icon: Bot,
       title: "IA atiende 24/7/365",
       description: "Nunca más pierdas una consulta, sin importar la hora",
-      color: "text-success"
+      color: "text-orange-600"
     },
     {
       icon: Zap,
       title: "Respuesta en menos de 30 segundos",
       description: "Respuestas instantáneas que convierten consultas en reservas",
-      color: "text-success"
+      color: "text-orange-600"
     },
     {
       icon: BarChart3,
       title: "Sincronización automática total",
       description: "Calendarios, pagos y facturas siempre actualizados",
-      color: "text-success"
+      color: "text-orange-600"
     },
     {
       icon: TrendingUp,
-      title: "300% más reservas garantizadas",
+      title: "150% más reservas garantizadas",
       description: "Resultados comprobados con garantía de satisfacción",
-      color: "text-success"
+      color: "text-orange-600"
     }
   ];
 
   return (
-    <section className="py-16 lg:py-24 bg-background">
+    <section className="py-16 lg:py-24 bg-gradient-to-br from-slate-100 via-gray-50 to-slate-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
-            <span className="text-destructive">EL PROBLEMA</span> vs{" "}
-            <span className="text-success">LA SOLUCIÓN</span>
+            <span className="text-blue-600">EL PROBLEMA</span> vs{" "}
+            <span className="text-orange-600">LA SOLUCIÓN</span>
           </h2>
           
           {/* Real-time Counter */}
-          <Card className="inline-block p-6 bg-destructive/10 border-destructive/20">
-            <p className="text-sm text-muted-foreground mb-2">Reservas perdidas en tiempo real</p>
-            <p className="text-4xl font-bold text-destructive" data-testid="text-lost-bookings">
+          <Card className="inline-block p-6 bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg">
+            <p className="text-sm text-gray-600 mb-2">Reservas perdidas en tiempo real</p>
+            <p className="text-4xl font-bold text-blue-600" data-testid="text-lost-bookings">
               {lostBookings.toLocaleString()}
             </p>
-            <p className="text-sm text-destructive/80">Solo en Monte Hermoso este año</p>
+            <p className="text-sm text-blue-500">Solo en Monte Hermoso este año</p>
           </Card>
         </div>
 
@@ -90,7 +90,7 @@ export default function ProblemSolutionSplit() {
           {/* Problem Column */}
           <div className="space-y-6">
             <div className="text-center lg:text-left mb-8">
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-destructive mb-4">
+              <h3 className="text-2xl md:text-3xl font-display font-bold text-blue-600 mb-4">
                 LO QUE PASA HOY
               </h3>
               <p className="text-lg text-muted-foreground">
@@ -101,11 +101,11 @@ export default function ProblemSolutionSplit() {
             {problemItems.map((item, index) => (
               <Card
                 key={index}
-                className="p-6 border-destructive/20 bg-destructive/5 hover-elevate transition-all duration-300"
+                className="p-6 border-blue-200 bg-gradient-to-br from-blue-50 to-blue-100 hover-elevate transition-all duration-300 shadow-md"
                 data-testid={`card-problem-${index}`}
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-3 rounded-lg bg-destructive/10">
+                  <div className="flex-shrink-0 p-3 rounded-lg bg-blue-100">
                     <item.icon className={`w-6 h-6 ${item.color}`} />
                   </div>
                   <div className="flex-1">
@@ -116,8 +116,8 @@ export default function ProblemSolutionSplit() {
               </Card>
             ))}
 
-            <div className="text-center p-6 bg-destructive/10 rounded-lg">
-              <p className="text-xl font-bold text-destructive">
+            <div className="text-center p-6 bg-gradient-to-r from-blue-100 to-blue-200 rounded-lg shadow-md">
+              <p className="text-xl font-bold text-blue-600">
                 RESULTADO: 70% menos ocupación promedio
               </p>
             </div>
@@ -126,7 +126,7 @@ export default function ProblemSolutionSplit() {
           {/* Solution Column */}
           <div className="space-y-6">
             <div className="text-center lg:text-left mb-8">
-              <h3 className="text-2xl md:text-3xl font-display font-bold text-success mb-4">
+              <h3 className="text-2xl md:text-3xl font-display font-bold text-orange-600 mb-4">
                 CON RENTALS AI
               </h3>
               <p className="text-lg text-muted-foreground">
@@ -137,11 +137,11 @@ export default function ProblemSolutionSplit() {
             {solutionItems.map((item, index) => (
               <Card
                 key={index}
-                className="p-6 border-success/20 bg-success/5 hover-elevate transition-all duration-300"
+                className="p-6 border-orange-200 bg-gradient-to-br from-orange-50 to-orange-100 hover-elevate transition-all duration-300 shadow-md"
                 data-testid={`card-solution-${index}`}
               >
                 <div className="flex items-start gap-4">
-                  <div className="flex-shrink-0 p-3 rounded-lg bg-success/10">
+                  <div className="flex-shrink-0 p-3 rounded-lg bg-orange-100">
                     <item.icon className={`w-6 h-6 ${item.color}`} />
                   </div>
                   <div className="flex-1">
@@ -152,8 +152,8 @@ export default function ProblemSolutionSplit() {
               </Card>
             ))}
 
-            <div className="text-center p-6 bg-success/10 rounded-lg">
-              <p className="text-xl font-bold text-success">
+            <div className="text-center p-6 bg-gradient-to-r from-orange-100 to-orange-200 rounded-lg shadow-md">
+              <p className="text-xl font-bold text-orange-600">
                 RESULTADO: 95%+ ocupación garantizada
               </p>
             </div>
