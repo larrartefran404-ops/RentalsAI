@@ -1,49 +1,60 @@
 import { useState } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Badge } from "@/components/ui/badge";
-import { Calculator, TrendingUp, DollarSign, AlertTriangle, CheckCircle } from "lucide-react";
+import { useClaude } from "@/hooks/use-claude";
+import {
+  Calculator,
+  DollarSign,
+  TrendingUp,
+  Bot,
+  Sparkles,
+  AlertTriangle,
+  CheckCircle
+} from "lucide-react";
 
 export default function IncomeCalculator() {
   const [currentOccupancy, setCurrentOccupancy] = useState([45]);
   const [averageRate, setAverageRate] = useState([150]);
   const [propertyType, setPropertyType] = useState("apartment");
+  const [aiRecommendations, setAiRecommendations] = useState<string>("");
+  const { optimizeIncome, isLoading } = useClaude();
 
   // Calculation logic - Realistic for Monte Hermoso (5 month season)
   const seasonDays = 150; // 5 months main season (Dec-April)
   const offSeasonDays = 215; // Rest of the year
-  
+
   // Current situation
   const currentSeasonOccupancy = currentOccupancy[0] / 100;
   const currentOffSeasonOccupancy = Math.max(0.1, currentOccupancy[0] / 400); // Much lower off-season
-  
+
   const currentSeasonDays = Math.round(seasonDays * currentSeasonOccupancy);
   const currentOffSeasonDays = Math.round(offSeasonDays * currentOffSeasonOccupancy);
   const currentDaysOccupied = currentSeasonDays + currentOffSeasonDays;
-  
+
   const seasonRate = averageRate[0];
   const offSeasonRate = Math.round(averageRate[0] * 0.6); // 40% less in off-season
-  
+
   const currentAnnualIncome = (currentSeasonDays * seasonRate) + (currentOffSeasonDays * offSeasonRate);
-  
+
   // With AI improvements - more realistic gains
   const aiSeasonOccupancy = Math.min(0.85, currentSeasonOccupancy * 1.8); // 80% improvement, max 85%
   const aiOffSeasonOccupancy = Math.min(0.4, currentOffSeasonOccupancy * 3); // Triple off-season
-  
+
   const aiSeasonDays = Math.round(seasonDays * aiSeasonOccupancy);
   const aiOffSeasonDays = Math.round(offSeasonDays * aiOffSeasonOccupancy);
   const aiDaysOccupied = aiSeasonDays + aiOffSeasonDays;
-  
+
   const aiSeasonRate = Math.round(seasonRate * 1.15); // 15% price optimization
   const aiOffSeasonRate = Math.round(offSeasonRate * 1.2); // 20% off-season optimization
-  
+
   const aiAnnualIncome = (aiSeasonDays * aiSeasonRate) + (aiOffSeasonDays * aiOffSeasonRate);
-  
+
   const totalIncrease = aiAnnualIncome - currentAnnualIncome;
   const percentageIncrease = Math.round(((aiAnnualIncome - currentAnnualIncome) / currentAnnualIncome) * 100);
-  
+
   // System cost (mock)
   const systemCost = 2400; // Annual cost
   const netProfit = totalIncrease - systemCost;
@@ -62,6 +73,24 @@ export default function IncomeCalculator() {
 
   const adjustedIncrease = totalIncrease * getMultiplier();
   const adjustedNetProfit = adjustedIncrease - systemCost;
+
+  const handleGetAIRecommendations = async () => {
+    try {
+      const response = await optimizeIncome({
+        currentIncome: currentAnnualIncome,
+        propertyType: propertyTypes.find(p => p.id === propertyType)?.label || "Propiedad",
+        location: "Monte Hermoso",
+        amenities: ["WiFi", "Aire Acondicionado", "Cocina Equipada", "Estacionamiento"]
+      });
+
+      if (response.success) {
+        setAiRecommendations(response.message);
+      }
+    } catch (error) {
+      console.error("Error getting AI recommendations:", error);
+      setAiRecommendations("Error al obtener recomendaciones. Inténtalo de nuevo.");
+    }
+  };
 
   return (
     <section className="py-16 lg:py-24 bg-gradient-to-br from-gray-100 via-slate-50 to-gray-200">
@@ -186,14 +215,14 @@ export default function IncomeCalculator() {
                     {Math.round((aiDaysOccupied/365)*100)}% (+{Math.round(((aiDaysOccupied-currentDaysOccupied)/365)*100)}%)
                   </Badge>
                 </div>
-                
+
                 <div className="flex justify-between items-center">
                   <span>Tarifa promedio optimizada:</span>
                   <Badge className="bg-golden text-golden-foreground">
                     ${Math.round((aiSeasonRate + aiOffSeasonRate)/2)} USD (+15%)
                   </Badge>
                 </div>
-                
+
                 <div className="flex justify-between items-center">
                   <span>Días ocupados:</span>
                   <span className="font-medium">{aiDaysOccupied}/365</span>
@@ -225,21 +254,21 @@ export default function IncomeCalculator() {
                   <span>Costo anual del sistema:</span>
                   <span className="font-medium">$2,400 USD</span>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-success/20 rounded">
                   <span>Incremento anual:</span>
                   <span className="font-bold text-success">
                     +${Math.round(adjustedIncrease).toLocaleString()} USD
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-golden/20 rounded">
                   <span>Ganancia neta:</span>
                   <span className="font-bold text-golden" data-testid="text-net-profit">
                     ${Math.round(adjustedNetProfit).toLocaleString()} USD
                   </span>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-accent/20 rounded">
                   <span>ROI anual:</span>
                   <span className="font-bold text-accent">{Math.round((adjustedNetProfit/systemCost)*100)}%</span>
@@ -257,6 +286,35 @@ export default function IncomeCalculator() {
               </div>
             </Card>
 
+            {/* AI Recommendations */}
+            <Card className="p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <Bot className="w-6 h-6 text-accent" />
+                <h3 className="text-2xl font-bold">Recomendaciones IA</h3>
+              </div>
+              {isLoading ? (
+                <div className="flex justify-center items-center h-32">
+                  <p>Cargando recomendaciones...</p>
+                </div>
+              ) : aiRecommendations ? (
+                <div className="text-sm text-muted-foreground space-y-4">
+                  {aiRecommendations.split('\n').map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
+                </div>
+              ) : (
+                <Button
+                  size="lg"
+                  className="w-full bg-accent hover:bg-accent/90 text-accent-foreground text-lg py-6"
+                  onClick={handleGetAIRecommendations}
+                  data-testid="button-get-ai-recommendations"
+                >
+                  <Sparkles className="w-5 h-5 mr-2" />
+                  Obtener Recomendaciones IA
+                </Button>
+              )}
+            </Card>
+
             {/* Warning */}
             <Card className="p-6 bg-destructive/5 border-destructive/20">
               <div className="flex items-start gap-3">
@@ -264,7 +322,7 @@ export default function IncomeCalculator() {
                 <div>
                   <h4 className="font-medium text-destructive mb-2">Costo de No Actuar</h4>
                   <p className="text-sm text-muted-foreground">
-                    Cada mes que retrases la implementación, pierdes aproximadamente 
+                    Cada mes que retrases la implementación, pierdes aproximadamente
                     <span className="font-bold text-destructive"> ${Math.round(adjustedIncrease/12).toLocaleString()} USD</span> en ingresos potenciales.
                   </p>
                 </div>
@@ -276,7 +334,7 @@ export default function IncomeCalculator() {
               <Button
                 size="lg"
                 className="w-full bg-golden hover:bg-golden/90 text-golden-foreground text-lg py-6"
-                onClick={() => console.log('Calculator CTA clicked', { 
+                onClick={() => console.log('Calculator CTA clicked', {
                   currentIncome: currentAnnualIncome,
                   projectedIncome: Math.round(aiAnnualIncome * getMultiplier()),
                   increase: Math.round(adjustedIncrease)
@@ -285,7 +343,7 @@ export default function IncomeCalculator() {
               >
                 Conseguir Estos Resultados Ahora
               </Button>
-              
+
               <p className="text-center text-sm text-muted-foreground">
                 Cálculos basados en datos reales de +150 propiedades
               </p>
@@ -296,7 +354,7 @@ export default function IncomeCalculator() {
         {/* Disclaimer */}
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
-            * Los resultados pueden variar según la ubicación, tipo de propiedad y condiciones del mercado. 
+            * Los resultados pueden variar según la ubicación, tipo de propiedad y condiciones del mercado.
             Los cálculos se basan en el promedio de mejoras observadas en propiedades similares durante los primeros 90 días de implementación.
           </p>
         </div>
