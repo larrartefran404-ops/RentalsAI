@@ -113,6 +113,7 @@ export default function GuaranteeSection() {
                   {guarantee.terms}
                 </p>
               </div>
+              </div>
             </Card>
           ))}
         </div>
