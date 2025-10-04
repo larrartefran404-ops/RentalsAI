@@ -3,6 +3,13 @@ import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import {
   Bed,
   Bath,
   Users,
@@ -20,7 +27,11 @@ export default function PropertyGrid() {
       id: 1,
       title: "Penthouse Vista al Mar",
       location: "Monte Hermoso - Frente al Mar",
-      image: "/attached_assets/GEMINI 1.png",
+      images: [
+        "/images/hero-1.png",
+        "/images/hero-2.png",
+        "/images/hero-3.png"
+      ],
       beds: 3,
       baths: 2,
       maxGuests: 8,
@@ -38,7 +49,11 @@ export default function PropertyGrid() {
       id: 2,
       title: "Suite Familiar Premium",
       location: "Monte Hermoso - 2 Cuadras del Mar",
-      image: "/attached_assets/GEMINI 2.png",
+      images: [
+        "/images/hero-4.png",
+        "/images/hero-5.png",
+        "/images/hero-6.png"
+      ],
       beds: 2,
       baths: 1,
       maxGuests: 6,
@@ -56,7 +71,11 @@ export default function PropertyGrid() {
       id: 3,
       title: "Loft Moderno Ejecutivo",
       location: "Monte Hermoso - Centro",
-      image: "/attached_assets/GEMINI 3.png",
+      images: [
+        "/images/hero-7.png",
+        "/images/hero-1.png",
+        "/images/hero-2.png"
+      ],
       beds: 1,
       baths: 1,
       maxGuests: 4,
@@ -126,48 +145,58 @@ export default function PropertyGrid() {
               className="overflow-hidden hover-elevate transition-all duration-300 border-border hover:border-accent/50"
               data-testid={`card-property-${property.id}`}
             >
-              {/* Property Image */}
-              <div className="relative h-48 overflow-hidden">
-                <img
-                  src={property.image}
-                  alt={property.title}
-                  className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
-                />
+              {/* Property Image Carousel */}
+              <Carousel className="w-full max-w-md mx-auto">
+                <CarouselContent>
+                  {property.images.map((imageUrl, i) => (
+                    <CarouselItem key={i}>
+                      <div className="relative h-48 overflow-hidden">
+                        <img
+                          src={imageUrl}
+                          alt={`${property.title} image ${i + 1}`}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                        />
+                      </div>
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
+                <CarouselPrevious className="absolute left-3 top-1/2 -translate-y-1/2" />
+                <CarouselNext className="absolute right-3 top-1/2 -translate-y-1/2" />
+              </Carousel>
 
-                {/* Occupancy Badge */}
-                <div
-                  className={`absolute top-4 right-4 px-3 py-1 rounded-full ${getOccupancyBgColor(property.occupancy)}`}
+              {/* Occupancy Badge */}
+              <div
+                className={`absolute top-4 right-4 px-3 py-1 rounded-full ${getOccupancyBgColor(property.occupancy)}`}
+              >
+                <span
+                  className={`text-sm font-medium ${getOccupancyColor(property.occupancy)}`}
                 >
-                  <span
-                    className={`text-sm font-medium ${getOccupancyColor(property.occupancy)}`}
-                  >
-                    {property.occupancy}% ocupado
-                  </span>
-                </div>
+                  {property.occupancy}% ocupado
+                </span>
+              </div>
 
-                {/* Price Overlay */}
-                <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-background/90 backdrop-blur-sm rounded-lg p-3">
-                  <div className="flex items-center gap-2">
-                    <span className="text-lg font-bold text-golden">
-                      ${property.currentPrice}
-                    </span>
-                    <span className="text-sm text-muted-foreground line-through">
-                      ${property.basePrice}
-                    </span>
-                    <Badge variant="outline" className="text-xs">
-                      <TrendingUp className="w-3 h-3 mr-1" />+
-                      {Math.round(
-                        ((property.currentPrice - property.basePrice) /
-                          property.basePrice) *
-                          100,
-                      )}
-                      %
-                    </Badge>
-                  </div>
-                  <p className="text-xs text-muted-foreground">
-                    por noche (precio dinámico)
-                  </p>
+              {/* Price Overlay */}
+              <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-background/90 backdrop-blur-sm rounded-lg p-3">
+                <div className="flex items-center gap-2">
+                  <span className="text-lg font-bold text-golden">
+                    ${property.currentPrice}
+                  </span>
+                  <span className="text-sm text-muted-foreground line-through">
+                    ${property.basePrice}
+                  </span>
+                  <Badge variant="outline" className="text-xs">
+                    <TrendingUp className="w-3 h-3 mr-1" />
+                    {Math.round(
+                      ((property.currentPrice - property.basePrice) /
+                        property.basePrice) *
+                        100,
+                    )}
+                    %
+                  </Badge>
                 </div>
+                <p className="text-xs text-muted-foreground">
+                  por noche (precio dinámico)
+                </p>
               </div>
 
               <div className="p-6">

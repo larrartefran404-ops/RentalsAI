@@ -112,8 +112,13 @@ export default function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-16 lg:py-24 bg-background">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-16 lg:py-24 bg-gradient-to-br from-primary/5 via-card to-accent/5 relative overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(var(--primary-rgb),0.3),transparent_50%)]"></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-display font-bold mb-6">
@@ -146,7 +151,7 @@ export default function TestimonialsSection() {
                       {testimonial.name.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
-                  
+
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
                       <h3 className="font-bold">{testimonial.name}</h3>
@@ -156,11 +161,11 @@ export default function TestimonialsSection() {
                         ))}
                       </div>
                     </div>
-                    
+
                     <p className="text-sm text-muted-foreground mb-2">
                       {testimonial.role} • {testimonial.location}
                     </p>
-                    
+
                     <div className="flex gap-4 mb-3">
                       <div className="text-center">
                         <p className="text-lg font-bold text-destructive">{testimonial.beforeOccupancy}%</p>
@@ -174,7 +179,7 @@ export default function TestimonialsSection() {
                         <p className="text-xs text-muted-foreground">Después</p>
                       </div>
                     </div>
-                    
+
                     <Badge variant="outline" className="text-golden border-golden">
                       +{testimonial.monthlyIncrease} USD/mes
                     </Badge>
@@ -190,10 +195,19 @@ export default function TestimonialsSection() {
               <div className="relative h-64">
                 {!isVideoPlaying ? (
                   // Video Thumbnail con botón Play
-                  <div className="relative h-full bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
+                  <div
+                    className="relative rounded-xl overflow-hidden cursor-pointer group shadow-2xl"
+                    onClick={handlePlayVideo}
+                    data-testid="video-placeholder"
+                  >
+                    <video
+                      src={testimonials[activeTestimonial].videoSrc}
+                      className="w-full aspect-video object-cover"
+                      preload="metadata"
+                    />
                     <Button
                       size="lg"
-                      className="rounded-full w-16 h-16 bg-white/90 hover:bg-white text-primary shadow-lg hover:scale-110 transition-all duration-300"
+                      className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full w-16 h-16 bg-white/90 hover:bg-white text-primary shadow-lg hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100"
                       onClick={handlePlayVideo}
                       data-testid="button-play-video"
                     >
@@ -235,7 +249,7 @@ export default function TestimonialsSection() {
               <blockquote className="text-lg italic mb-6">
                 "{testimonials[activeTestimonial].quote}"
               </blockquote>
-              
+
               <div className="space-y-3">
                 <div className="flex justify-between items-center p-3 bg-muted rounded">
                   <span className="text-sm">Reservas</span>
@@ -245,7 +259,7 @@ export default function TestimonialsSection() {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-muted rounded">
                   <span className="text-sm">Ocupación</span>
                   <div className="text-right">
@@ -254,7 +268,7 @@ export default function TestimonialsSection() {
                     </p>
                   </div>
                 </div>
-                
+
                 <div className="flex justify-between items-center p-3 bg-success/10 rounded">
                   <span className="text-sm">Resultado</span>
                   <Badge className="bg-success text-success-foreground">
@@ -271,13 +285,13 @@ export default function TestimonialsSection() {
           <h3 className="text-2xl md:text-3xl font-display font-bold text-center mb-12">
             Casos de Éxito con <span className="text-golden">Números Reales</span>
           </h3>
-          
+
           <div className="grid md:grid-cols-3 gap-6">
             {caseStudies.map((study, index) => (
               <Card key={index} className="p-6 hover-elevate" data-testid={`card-case-study-${index}`}>
                 <h4 className="font-bold text-lg mb-2">{study.title}</h4>
                 <p className="text-sm text-muted-foreground mb-4">{study.period}</p>
-                
+
                 <div className="space-y-3 mb-4">
                   <div className="flex justify-between items-center">
                     <span className="text-sm">Antes:</span>
@@ -296,7 +310,7 @@ export default function TestimonialsSection() {
                     </div>
                   </div>
                 </div>
-                
+
                 <p className="text-sm text-muted-foreground">{study.details}</p>
               </Card>
             ))}

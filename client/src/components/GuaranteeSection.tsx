@@ -81,23 +81,33 @@ export default function GuaranteeSection() {
         {/* Main Guarantees */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {guarantees.map((guarantee, index) => (
-            <Card 
-              key={index} 
-              className="p-8 text-center border-golden/20 bg-golden/5 hover-elevate transition-all duration-300"
+            <Card
+              key={index}
+              className="p-8 hover-elevate transition-all duration-300 hover:border-golden/50 relative overflow-hidden group"
               data-testid={`card-guarantee-${index}`}
             >
-              <div className="inline-flex p-4 rounded-full bg-golden/20 mb-6">
-                <guarantee.icon className="w-8 h-8 text-golden" />
+              {/* Background Image */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+                <img
+                  src={`/images/hero-${(index % 7) + 1}.png`}
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
               </div>
-              
+
+              <div className="text-center relative z-10">
+                <div className="mx-auto w-16 h-16 bg-golden/10 rounded-full flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <guarantee.icon className="w-8 h-8 text-golden" />
+                </div>
+
               <h3 className="font-bold text-xl mb-4 text-golden">
                 {guarantee.title}
               </h3>
-              
+
               <p className="text-muted-foreground mb-6">
                 {guarantee.description}
               </p>
-              
+
               <div className="p-3 bg-background/50 rounded-lg">
                 <p className="text-sm text-muted-foreground">
                   {guarantee.terms}
@@ -110,17 +120,17 @@ export default function GuaranteeSection() {
         {/* Central Commitment Statement */}
         <Card className="p-12 text-center bg-gradient-to-br from-golden/10 via-golden/5 to-transparent border-golden/30 mb-12">
           <Award className="w-16 h-16 text-golden mx-auto mb-6" />
-          
+
           <h3 className="text-3xl md:text-4xl font-display font-bold mb-6">
             NUESTRO <span className="text-golden">COMPROMISO</span>
           </h3>
-          
+
           <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto">
-            Te garantizamos una <span className="font-bold text-golden">configuración perfecta</span>, 
-            integración completa con todas tus plataformas existentes, y 
+            Te garantizamos una <span className="font-bold text-golden">configuración perfecta</span>,
+            integración completa con todas tus plataformas existentes, y
             <span className="font-bold text-golden"> soporte especializado continuo</span> para maximizar tu ocupación.
           </p>
-          
+
           <div className="flex flex-wrap justify-center gap-4 mb-8">
             <Badge className="bg-success text-success-foreground px-4 py-2">
               Soporte Incluido
@@ -149,7 +159,7 @@ export default function GuaranteeSection() {
             <h3 className="text-2xl font-bold mb-6">
               <span className="text-success">Cero Riesgo</span> Para Ti
             </h3>
-            
+
             <div className="space-y-4">
               {riskReversals.map((item, index) => (
                 <div key={index} className="flex items-center gap-3">
@@ -158,11 +168,11 @@ export default function GuaranteeSection() {
                 </div>
               ))}
             </div>
-            
+
             <div className="mt-8 p-6 bg-success/10 border border-success/20 rounded-lg">
               <h4 className="font-bold text-success mb-2">Promesa Adicional:</h4>
               <p className="text-sm text-muted-foreground">
-                Si alguna vez no estás 100% satisfecho, puedes cancelar con un simple email. 
+                Si alguna vez no estás 100% satisfecho, puedes cancelar con un simple email.
                 Sin llamadas, sin formularios, sin complicaciones.
               </p>
             </div>
@@ -172,24 +182,24 @@ export default function GuaranteeSection() {
             <h4 className="font-bold text-xl mb-6 text-center">
               Lo Que Incluimos vs La Competencia
             </h4>
-            
+
             <div className="space-y-4">
               <div className="flex justify-between items-center p-4 bg-destructive/10 rounded">
                 <span className="text-sm">Otros:</span>
                 <span className="font-medium text-destructive">Configuración por separado</span>
               </div>
-              
+
               <div className="flex justify-between items-center p-4 bg-golden/10 rounded">
                 <span className="text-sm">Rentals AI:</span>
                 <span className="font-medium text-golden">Todo incluido + soporte</span>
               </div>
-              
+
               <div className="flex justify-between items-center p-4 bg-success/10 rounded">
                 <span className="text-sm">Integraciones:</span>
                 <span className="font-bold text-success">15+ plataformas</span>
               </div>
             </div>
-            
+
             <div className="text-center mt-6">
               <p className="text-sm text-muted-foreground">
                 La única forma de perder es no probarlo
@@ -198,27 +208,34 @@ export default function GuaranteeSection() {
           </Card>
         </div>
 
-        {/* Final CTA */}
-        <div className="text-center mt-16">
-          <p className="text-lg text-muted-foreground mb-6">
-            Más de 150 propietarios ya confiaron en nuestras garantías
-          </p>
-          
-          <div className="flex justify-center gap-6 mb-8">
-            <div className="text-center">
-              <p className="text-3xl font-bold text-success">15+</p>
-              <p className="text-sm text-muted-foreground">Plataformas integradas</p>
+        {/* Animated Stats Banner */}
+        <div className="relative overflow-hidden bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_100%] animate-[gradient_8s_ease_infinite] rounded-2xl p-8 mt-16">
+          <div className="grid md:grid-cols-4 gap-6 text-center text-white relative z-10">
+            <div className="animate-[fadeInUp_0.6s_ease-out]">
+              <div className="text-sm opacity-90 mb-1">Más de</div>
+              <div className="text-5xl font-bold mb-2">150</div>
+              <p className="text-sm opacity-90">propietarios confiaron</p>
             </div>
-            <div className="text-center">
-              <p className="text-3xl font-bold text-golden">24/7</p>
-              <p className="text-sm text-muted-foreground">Soporte disponible</p>
+            <div className="animate-[fadeInUp_0.6s_ease-out_0.2s] opacity-0 [animation-fill-mode:forwards]">
+              <div className="text-5xl font-bold text-golden mb-2">15+</div>
+              <p className="text-sm opacity-90">Plataformas integradas</p>
             </div>
-            <div className="text-center">
-              <p className="text-3xl font-bold text-accent">150+</p>
-              <p className="text-sm text-muted-foreground">Propietarios activos</p>
+            <div className="animate-[fadeInUp_0.6s_ease-out_0.4s] opacity-0 [animation-fill-mode:forwards]">
+              <div className="text-5xl font-bold text-golden mb-2">24/7</div>
+              <p className="text-sm opacity-90">Soporte disponible</p>
+            </div>
+            <div className="animate-[fadeInUp_0.6s_ease-out_0.6s] opacity-0 [animation-fill-mode:forwards]">
+              <div className="text-5xl font-bold text-golden mb-2">150+</div>
+              <p className="text-sm opacity-90">Propietarios activos</p>
             </div>
           </div>
 
+          {/* Sparkle Effects */}
+          <div className="absolute top-4 right-4 w-2 h-2 bg-white rounded-full animate-ping"></div>
+          <div className="absolute bottom-4 left-8 w-2 h-2 bg-golden rounded-full animate-ping [animation-delay:0.5s]"></div>
+        </div>
+
+        <div className="text-center mt-16">
           <Button
             variant="outline"
             size="lg"

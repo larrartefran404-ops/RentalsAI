@@ -27,6 +27,9 @@ export default function IncomeCalculator() {
   const seasonDays = 150; // 5 months main season (Dec-April)
   const offSeasonDays = 215; // Rest of the year
 
+  // Max rate for slider and calculation
+  const maxRate = 250;
+
   // Current situation
   const currentSeasonOccupancy = currentOccupancy[0] / 100;
   const currentOffSeasonOccupancy = Math.max(0.1, currentOccupancy[0] / 400); // Much lower off-season
@@ -40,16 +43,17 @@ export default function IncomeCalculator() {
 
   const currentAnnualIncome = (currentSeasonDays * seasonRate) + (currentOffSeasonDays * offSeasonRate);
 
-  // With AI improvements - more realistic gains
-  const aiSeasonOccupancy = Math.min(0.85, currentSeasonOccupancy * 1.8); // 80% improvement, max 85%
-  const aiOffSeasonOccupancy = Math.min(0.4, currentOffSeasonOccupancy * 3); // Triple off-season
+  // With AI - Valores realistas y conservadores
+  const aiSeasonOccupancy = Math.min(0.92, currentSeasonOccupancy * 1.45); // Max 92% en temporada
+  const aiOffSeasonOccupancy = Math.min(0.15, currentOffSeasonOccupancy * 2.5); // Mejor pero realista fuera de temporada
 
   const aiSeasonDays = Math.round(seasonDays * aiSeasonOccupancy);
   const aiOffSeasonDays = Math.round(offSeasonDays * aiOffSeasonOccupancy);
   const aiDaysOccupied = aiSeasonDays + aiOffSeasonDays;
 
-  const aiSeasonRate = Math.round(seasonRate * 1.15); // 15% price optimization
-  const aiOffSeasonRate = Math.round(offSeasonRate * 1.2); // 20% off-season optimization
+  // Tarifa temporada alta mejorada, baja temporada al 50%
+  const aiSeasonRate = Math.min(maxRate, averageRate[0] * 1.20); // 20% aumento máximo
+  const aiOffSeasonRate = averageRate[0] * 0.50; // 50% en baja temporada
 
   const aiAnnualIncome = (aiSeasonDays * aiSeasonRate) + (aiOffSeasonDays * aiOffSeasonRate);
 
@@ -102,7 +106,7 @@ export default function IncomeCalculator() {
             Calculadora de <span className="text-golden">Ingresos Potenciales</span>
           </h2>
           <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Descubre cuánto dinero estás perdiendo y cuánto podrías ganar con nuestra IA
+            Descubre cuánto dinero podrías ganar con nuestra IA en tu propiedad.
           </p>
         </div>
 
@@ -138,9 +142,12 @@ export default function IncomeCalculator() {
 
               {/* Current Occupancy */}
               <div>
-                <Label className="text-base font-medium mb-4 block">
-                  Ocupación Actual: <span className="text-accent">{currentOccupancy[0]}%</span>
-                </Label>
+                <div className="flex justify-between items-center mb-2">
+                  <Label className="text-base font-medium">
+                    Ocupación en Temporada Alta
+                  </Label>
+                  <span className="text-accent font-semibold">{currentOccupancy[0]}%</span>
+                </div>
                 <Slider
                   value={currentOccupancy}
                   onValueChange={setCurrentOccupancy}
@@ -151,31 +158,30 @@ export default function IncomeCalculator() {
                   data-testid="slider-occupancy"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>10% (Muy baja)</span>
-                  <span>90% (Muy alta)</span>
+                  <span>10% (Baja)</span>
+                  <span>90% (Alta)</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-2">
-                  {currentDaysOccupied} días ocupados al año
+                  {currentDaysOccupied} días ocupados al año (estimado)
                 </p>
               </div>
 
               {/* Average Rate */}
               <div>
                 <Label className="text-base font-medium mb-4 block">
-                  Tarifa Promedio: <span className="text-accent">${averageRate[0]} USD/noche</span>
+                  Tarifa Promedio por Noche: <span className="text-accent font-semibold">${averageRate[0]} USD</span>
                 </Label>
                 <Slider
                   value={averageRate}
                   onValueChange={setAverageRate}
-                  max={200}
-                  min={40}
-                  step={5}
-                  className="mb-2"
-                  data-testid="slider-rate"
+                  min={100}
+                  max={250}
+                  step={10}
+                  className="w-full"
                 />
                 <div className="flex justify-between text-sm text-muted-foreground">
-                  <span>$40 USD</span>
-                  <span>$200 USD</span>
+                  <span>$100 USD</span>
+                  <span>$250 USD</span>
                 </div>
               </div>
 
@@ -192,7 +198,7 @@ export default function IncomeCalculator() {
                     <span className="font-medium text-destructive">{365 - currentDaysOccupied}</span>
                   </div>
                   <div className="flex justify-between border-t pt-2">
-                    <span>Ingresos anuales:</span>
+                    <span>Ingresos anuales estimados:</span>
                     <span className="font-bold">${currentAnnualIncome.toLocaleString()} USD</span>
                   </div>
                 </div>
@@ -206,12 +212,12 @@ export default function IncomeCalculator() {
             <Card className="p-8 bg-success/5 border-success/20">
               <div className="flex items-center gap-3 mb-6">
                 <TrendingUp className="w-6 h-6 text-success" />
-                <h3 className="text-2xl font-bold text-success">Con Rentals AI</h3>
+                <h3 className="text-2xl font-bold text-success">Proyección con Rentals AI</h3>
               </div>
 
               <div className="space-y-4 mb-6">
                 <div className="flex justify-between items-center">
-                  <span>Nueva ocupación:</span>
+                  <span>Ocupación proyectada:</span>
                   <Badge className="bg-orange-500 text-white">
                     {Math.round((aiDaysOccupied/365)*100)}% (+{Math.round(((aiDaysOccupied-currentDaysOccupied)/365)*100)}%)
                   </Badge>
@@ -220,7 +226,7 @@ export default function IncomeCalculator() {
                 <div className="flex justify-between items-center">
                   <span>Tarifa promedio optimizada:</span>
                   <Badge className="bg-golden text-golden-foreground">
-                    ${Math.round((aiSeasonRate + aiOffSeasonRate)/2)} USD (+15%)
+                    ${Math.round((aiSeasonRate + aiOffSeasonRate)/2)} USD (+{Math.round(((aiSeasonRate-seasonRate)/seasonRate)*100)}% temporada)
                   </Badge>
                 </div>
 
@@ -232,13 +238,13 @@ export default function IncomeCalculator() {
 
               <div className="border-t pt-4">
                 <div className="flex justify-between items-center mb-2">
-                  <span className="text-lg">Nuevos ingresos anuales:</span>
+                  <span className="text-lg">Nuevos ingresos anuales estimados:</span>
                   <span className="text-2xl font-bold text-success" data-testid="text-ai-income">
                     ${Math.round(aiAnnualIncome * getMultiplier()).toLocaleString()} USD
                   </span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Incremento de ${Math.round(adjustedIncrease).toLocaleString()} USD (+{percentageIncrease}%)
+                  Incremento estimado de ${Math.round(adjustedIncrease).toLocaleString()} USD (+{percentageIncrease}%)
                 </p>
               </div>
             </Card>
@@ -257,21 +263,21 @@ export default function IncomeCalculator() {
                 </div>
 
                 <div className="flex justify-between items-center p-3 bg-success/20 rounded">
-                  <span>Incremento anual:</span>
+                  <span>Incremento anual potencial:</span>
                   <span className="font-bold text-success">
                     +${Math.round(adjustedIncrease).toLocaleString()} USD
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center p-3 bg-golden/20 rounded">
-                  <span>Ganancia neta:</span>
+                  <span>Ganancia neta anual estimada:</span>
                   <span className="font-bold text-golden" data-testid="text-net-profit">
                     ${Math.round(adjustedNetProfit).toLocaleString()} USD
                   </span>
                 </div>
 
                 <div className="flex justify-between items-center p-3 bg-accent/20 rounded">
-                  <span>ROI anual:</span>
+                  <span>ROI anual estimado:</span>
                   <span className="font-bold text-accent">{Math.round((adjustedNetProfit/systemCost)*100)}%</span>
                 </div>
               </div>
@@ -279,7 +285,7 @@ export default function IncomeCalculator() {
               <div className="mt-6 p-4 bg-primary/10 rounded-lg">
                 <div className="flex items-center gap-2 mb-2">
                   <CheckCircle className="w-5 h-5 text-primary" />
-                  <span className="font-medium">Sistema se paga solo en:</span>
+                  <span className="font-medium">El sistema se paga solo en:</span>
                 </div>
                 <p className="text-2xl font-bold text-primary">
                   {Math.ceil((systemCost * 12) / adjustedIncrease)} meses
@@ -323,7 +329,7 @@ export default function IncomeCalculator() {
                 <div>
                   <h4 className="font-medium text-destructive mb-2">Costo de No Actuar</h4>
                   <p className="text-sm text-muted-foreground">
-                    Cada mes que retrases la implementación, pierdes aproximadamente
+                    Cada mes que retrases la implementación, podrías estar perdiendo aproximadamente
                     <span className="font-bold text-destructive"> ${Math.round(adjustedIncrease/12).toLocaleString()} USD</span> en ingresos potenciales.
                   </p>
                 </div>
@@ -346,7 +352,7 @@ export default function IncomeCalculator() {
               </Button>
 
               <p className="text-center text-sm text-muted-foreground">
-                Cálculos basados en datos reales de +150 propiedades
+                Resultados estimados basados en datos de +150 propiedades gestionadas con Rentals AI.
               </p>
             </div>
           </div>
@@ -355,8 +361,7 @@ export default function IncomeCalculator() {
         {/* Disclaimer */}
         <div className="mt-12 text-center">
           <p className="text-sm text-muted-foreground max-w-3xl mx-auto">
-            * Los resultados pueden variar según la ubicación, tipo de propiedad y condiciones del mercado.
-            Los cálculos se basan en el promedio de mejoras observadas en propiedades similares durante los primeros 90 días de implementación.
+            * Los resultados son estimaciones y pueden variar según la ubicación específica, tipo de propiedad, demanda del mercado y la correcta aplicación de las estrategias. Los cálculos se basan en el promedio de mejoras observadas en propiedades gestionadas por Rentals AI durante los primeros meses de implementación.
           </p>
         </div>
       </div>

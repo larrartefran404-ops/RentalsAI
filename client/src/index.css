@@ -343,3 +343,30 @@
     inset: -1px;
   }
 }
+
+.hover-elevate {
+  @apply transition-all duration-300;
+}
+.hover-elevate:hover {
+  @apply shadow-xl -translate-y-1;
+}
+
+@keyframes gradient {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -116,7 +116,7 @@ export default function AITechnologyShowcase() {
                   <p className="text-accent font-medium">{pillars[selectedPillar].subtitle}</p>
                 </div>
               </div>
-              
+
               <p className="text-lg text-muted-foreground mb-6">
                 {pillars[selectedPillar].description}
               </p>
@@ -138,7 +138,7 @@ export default function AITechnologyShowcase() {
                 <p className="text-sm text-muted-foreground mb-6">
                   Dashboard en tiempo real mostrando la tecnología en acción
                 </p>
-                
+
                 {/* Mock Dashboard Preview */}
                 <div className="space-y-3 text-left">
                   <div className="flex justify-between items-center p-3 bg-success/10 rounded">
