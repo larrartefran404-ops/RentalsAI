@@ -119,39 +119,50 @@ export default function GuaranteeSection() {
         </div>
 
         {/* Central Commitment Statement */}
-        <Card className="p-12 text-center bg-gradient-to-br from-golden/10 via-golden/5 to-transparent border-golden/30 mb-12">
-          <Award className="w-16 h-16 text-golden mx-auto mb-6" />
+        <Card className="p-12 text-center bg-gradient-to-br from-golden/10 via-golden/5 to-transparent border-golden/30 mb-12 relative overflow-hidden">
+          {/* Background Image */}
+          <div className="absolute inset-0 opacity-5">
+            <img
+              src="/images/hero-3.png"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
+          <div className="relative z-10">
+            <Award className="w-16 h-16 text-golden mx-auto mb-6 animate-[fadeInUp_0.6s_ease-out]" />
 
-          <h3 className="text-3xl md:text-4xl font-display font-bold mb-6">
-            NUESTRO <span className="text-golden">COMPROMISO</span>
-          </h3>
+            <h3 className="text-3xl md:text-4xl font-display font-bold mb-6 animate-[fadeInUp_0.6s_ease-out_0.2s] opacity-0 [animation-fill-mode:forwards]">
+              NUESTRO <span className="text-golden">COMPROMISO</span>
+            </h3>
 
-          <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto">
-            Te garantizamos una <span className="font-bold text-golden">configuración perfecta</span>,
-            integración completa con todas tus plataformas existentes, y
-            <span className="font-bold text-golden"> soporte especializado continuo</span> para maximizar tu ocupación.
-          </p>
+            <p className="text-xl text-muted-foreground mb-8 max-w-4xl mx-auto animate-[fadeInUp_0.6s_ease-out_0.4s] opacity-0 [animation-fill-mode:forwards]">
+              Te garantizamos una <span className="font-bold text-golden">configuración perfecta</span>,
+              integración completa con todas tus plataformas existentes, y
+              <span className="font-bold text-golden"> soporte especializado continuo</span> para maximizar tu ocupación.
+            </p>
 
           <div className="flex flex-wrap justify-center gap-4 mb-8">
-            <Badge className="bg-success text-success-foreground px-4 py-2">
+            <Badge className="bg-success text-success-foreground px-4 py-2 animate-[fadeInUp_0.6s_ease-out_0.6s] opacity-0 [animation-fill-mode:forwards]">
               Soporte Incluido
             </Badge>
-            <Badge className="bg-primary text-primary-foreground px-4 py-2">
+            <Badge className="bg-primary text-primary-foreground px-4 py-2 animate-[fadeInUp_0.6s_ease-out_0.7s] opacity-0 [animation-fill-mode:forwards]">
               Integración Completa
             </Badge>
-            <Badge className="bg-accent text-accent-foreground px-4 py-2">
+            <Badge className="bg-accent text-accent-foreground px-4 py-2 animate-[fadeInUp_0.6s_ease-out_0.8s] opacity-0 [animation-fill-mode:forwards]">
               Sin Costos Ocultos
             </Badge>
           </div>
 
           <Button
             size="lg"
-            className="bg-golden hover:bg-golden/90 text-golden-foreground text-xl px-12 py-6 rounded-full shadow-2xl"
+            className="bg-golden hover:bg-golden/90 text-golden-foreground text-xl px-12 py-6 rounded-full shadow-2xl animate-[fadeInUp_0.6s_ease-out_1s] opacity-0 [animation-fill-mode:forwards]"
             onClick={() => console.log('Commitment CTA clicked')}
             data-testid="button-commitment-cta"
           >
             AGENDAR DEMO PERSONALIZADA
           </Button>
+          </div>
         </Card>
 
         {/* Risk Reversals */}

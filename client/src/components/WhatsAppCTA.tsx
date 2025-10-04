@@ -22,7 +22,7 @@ export default function WhatsAppCTA() {
     const message = encodeURIComponent(
       "Hola! Me interesa saber más sobre Rentals AI. Quiero aumentar las reservas de mi propiedad en Monte Hermoso."
     );
-    const phoneNumber = "5492914000000"; // Replace with actual WhatsApp number
+    const phoneNumber = "5492915206692";
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
 
@@ -91,7 +91,7 @@ export default function WhatsAppCTA() {
         <Button
           onClick={() => setIsOpen(!isOpen)}
           size="lg"
-          className="w-16 h-16 rounded-full bg-success hover:bg-success/90 text-success-foreground shadow-2xl animate-pulse"
+          className="w-16 h-16 rounded-full bg-success hover:bg-success/90 text-success-foreground shadow-2xl"
           data-testid="button-whatsapp-float"
         >
           <MessageCircle className="w-6 h-6" />

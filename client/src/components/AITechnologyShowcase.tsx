@@ -101,8 +101,17 @@ export default function AITechnologyShowcase() {
         </div>
 
         {/* Selected Pillar Details */}
-        <Card className="p-8 border-accent/20 bg-accent/5">
-          <div className="grid lg:grid-cols-2 gap-8 items-center">
+        <Card className="p-8 border-accent/20 bg-accent/5 relative overflow-hidden">
+          {/* Background Image for Chatbots Card */}
+          <div className="absolute inset-0 opacity-5">
+            <img
+              src="/images/hero-4.png"
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </div>
+          
+          <div className="grid lg:grid-cols-2 gap-8 items-center relative z-10">
             <div>
               <div className="flex items-center gap-4 mb-6">
                 <div className="p-4 rounded-lg bg-accent text-accent-foreground">
@@ -131,8 +140,17 @@ export default function AITechnologyShowcase() {
               </div>
             </div>
 
-            <div className="bg-white/50 dark:bg-background/50 rounded-lg p-6 border">
-              <div className="text-center">
+            <div className="bg-white/50 dark:bg-background/50 rounded-lg p-6 border relative overflow-hidden">
+              {/* Background Image for Dashboard Preview */}
+              <div className="absolute inset-0 opacity-10">
+                <img
+                  src="/images/hero-6.png"
+                  alt=""
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              
+              <div className="text-center relative z-10">
                 <Bot className="w-16 h-16 text-accent mx-auto mb-4" />
                 <h4 className="font-bold mb-2">Vista Previa del Sistema</h4>
                 <p className="text-sm text-muted-foreground mb-6">

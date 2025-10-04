@@ -135,20 +135,20 @@ export default function HeroSection() {
         {/* Main CTA Button */}
         <Button
           size="lg"
-          className="bg-golden hover:bg-golden/90 text-golden-foreground font-bold text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+          className="bg-golden hover:bg-golden/90 text-golden-foreground font-bold text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 mt-8"
           data-testid="button-main-cta"
         >
-          CONOCER NUESTRA PLATAFORMA
+          VER DEMO EN VIVO
         </Button>
 
         {/* Secondary CTA */}
         <p className="text-white/70 mt-4">
           <button
-            className="underline hover:text-golden transition-colors"
+            className="underline hover:text-golden transition-colors text-sm"
             data-testid="button-demo"
             onClick={() => console.log('Demo clicked')}
           >
-            Ver Demo en Vivo
+            Conocer más sobre la plataforma
           </button>
         </p>
       </div>
