@@ -87,7 +87,7 @@ export default function GuaranteeSection() {
               data-testid={`card-guarantee-${index}`}
             >
               {/* Background Image */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500">
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-25 transition-opacity duration-500">
                 <img
                   src={`/images/hero-${(index % 7) + 1}.png`}
                   alt=""
@@ -121,7 +121,7 @@ export default function GuaranteeSection() {
         {/* Central Commitment Statement */}
         <Card className="p-12 text-center bg-gradient-to-br from-golden/10 via-golden/5 to-transparent border-golden/30 mb-12 relative overflow-hidden">
           {/* Background Image */}
-          <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 opacity-20">
             <img
               src="/images/hero-3.png"
               alt=""

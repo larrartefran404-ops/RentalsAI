@@ -103,7 +103,7 @@ export default function AITechnologyShowcase() {
         {/* Selected Pillar Details */}
         <Card className="p-8 border-accent/20 bg-accent/5 relative overflow-hidden">
           {/* Background Image for Chatbots Card */}
-          <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0 opacity-20">
             <img
               src="/images/hero-4.png"
               alt=""
@@ -142,7 +142,7 @@ export default function AITechnologyShowcase() {
 
             <div className="bg-white/50 dark:bg-background/50 rounded-lg p-6 border relative overflow-hidden">
               {/* Background Image for Dashboard Preview */}
-              <div className="absolute inset-0 opacity-10">
+              <div className="absolute inset-0 opacity-25">
                 <img
                   src="/images/hero-6.png"
                   alt=""

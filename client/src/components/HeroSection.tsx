@@ -132,10 +132,24 @@ export default function HeroSection() {
           </div>
         </div>
 
+        {/* Carousel Dots */}
+        <div className="flex justify-center gap-2 mt-12 mb-8">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentImage(index)}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === currentImage ? "bg-golden" : "bg-white/40"
+              }`}
+              data-testid={`dot-carousel-${index}`}
+            />
+          ))}
+        </div>
+
         {/* Main CTA Button */}
         <Button
           size="lg"
-          className="bg-golden hover:bg-golden/90 text-golden-foreground font-bold text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300 mt-8"
+          className="bg-golden hover:bg-golden/90 text-golden-foreground font-bold text-xl px-12 py-6 rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
           data-testid="button-main-cta"
         >
           VER DEMO EN VIVO
@@ -151,20 +165,6 @@ export default function HeroSection() {
             Conocer más sobre la plataforma
           </button>
         </p>
-      </div>
-
-      {/* Carousel Dots */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex gap-2">
-        {heroImages.map((_, index) => (
-          <button
-            key={index}
-            onClick={() => setCurrentImage(index)}
-            className={`w-3 h-3 rounded-full transition-all ${
-              index === currentImage ? "bg-golden" : "bg-white/40"
-            }`}
-            data-testid={`dot-carousel-${index}`}
-          />
-        ))}
       </div>
     </section>
   );
