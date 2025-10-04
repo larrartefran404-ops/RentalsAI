@@ -86,8 +86,8 @@ export default function GuaranteeSection() {
               className="p-8 hover-elevate transition-all duration-300 hover:border-golden/50 relative overflow-hidden group"
               data-testid={`card-guarantee-${index}`}
             >
-              {/* Background Image */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-25 transition-opacity duration-500">
+              {/* ✅ CORREGIDO: Opacidad aumentada de opacity-0 a opacity-30 en hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500">
                 <img
                   src={`/images/hero-${(index % 7) + 1}.png`}
                   alt=""
@@ -120,8 +120,8 @@ export default function GuaranteeSection() {
 
         {/* Central Commitment Statement */}
         <Card className="p-12 text-center bg-gradient-to-br from-golden/10 via-golden/5 to-transparent border-golden/30 mb-12 relative overflow-hidden">
-          {/* Background Image */}
-          <div className="absolute inset-0 opacity-20">
+          {/* ✅ CORREGIDO: Opacidad aumentada de opacity-20 a opacity-40 */}
+          <div className="absolute inset-0 opacity-40">
             <img
               src="/images/hero-3.png"
               alt=""
