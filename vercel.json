@@ -1,0 +1,10 @@
+{
+  "buildCommand": "cd client && npm run build",
+  "outputDirectory": "client/dist/public",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
