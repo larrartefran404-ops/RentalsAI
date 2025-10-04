@@ -59,7 +59,8 @@ export default function HeroSection() {
               alt={`Monte Hermoso Property ${index + 1}`}
               className="w-full h-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/60 to-transparent"></div>
+            {/* ✅ CORREGIDO: Opacidad reducida de 80%/60% a 30%/20% */}
+            <div className="absolute inset-0 bg-gradient-to-r from-primary/30 via-primary/20 to-transparent"></div>
           </div>
         ))}
       </div>
